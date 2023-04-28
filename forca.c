@@ -8,6 +8,13 @@ void abertura() {
     printf("***********************************\n\n");
 }
 
+void chuta(char chutes[26], int tentativas) {
+    char chute;
+    scanf(" %c", &chute);
+
+    chutes[tentativas] = chute;
+}
+
 int main() {
     setlocale(LC_ALL, "portuguese");
 
@@ -43,10 +50,7 @@ int main() {
         }
         printf("\n");
 
-        char chute;
-        scanf(" %c", &chute);
-
-        chutes[tentativas] = chute;
+        chuta(chutes, tentativas);
         tentativas++;
 
     } while(!acertou && !enforcou);
