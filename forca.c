@@ -44,12 +44,16 @@ void desenhaforca(char palavrasecreta[20], char chutes[26], int tentativas) {
     printf("\n");
 }
 
+void escolheapalavra(char palavrasecreta[20]){
+    sprintf(palavrasecreta, "MELANCIA");
+}
+
 int main() {
     setlocale(LC_ALL, "portuguese");
 
     char palavrasecreta[20];
 
-    sprintf(palavrasecreta, "MELANCIA");
+    escolheapalavra(palavrasecreta);
 
     int acertou = 0;
     int enforcou = 0;
