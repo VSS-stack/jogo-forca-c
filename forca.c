@@ -53,6 +53,15 @@ void escolheapalavra(){
     sprintf(palavrasecreta, "MELANCIA");
 }
 
+int acertou() {
+    for(int i = 0; i < strlen(palavrasecreta); i++) {
+        if(!jachutou(palavrasecreta[i])) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 int enforcou() {
     int erros = 0;
     
@@ -79,8 +88,6 @@ int main() {
 
     escolheapalavra();
 
-    int acertou = 0;
-
     abertura();
 
     do {
@@ -88,7 +95,7 @@ int main() {
 
         chuta();
 
-    } while(!acertou && !enforcou());
+    } while(!acertou() && !enforcou());
 
     return 0;
 }
