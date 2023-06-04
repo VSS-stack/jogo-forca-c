@@ -18,7 +18,7 @@ void abertura() {
 
 void chuta() {
     char chute;
-    scanf(" %c", &chute);
+    scanf(" %c", &chute); //o espaço antes da máscar ignora o buffer da tecla Enter
 
     chutes[chutesdados] = chute;
 
@@ -50,6 +50,40 @@ void desenhaforca() {
             }
         }
     printf("\n");
+}
+
+//inclui uma palavra ao arquivo
+void adicionapalavra() {
+    char quer;
+    printf("\n\nVocê deseja adicionar uma palavra no jogo? (s/n)");
+    scanf(" %c", &quer);
+
+    if(quer == 's') {
+        char novapalavra[20];
+        printf("\n\nQual a nova palavra? ");
+        scanf("%s", novapalavra);
+
+        FILE *f;
+        f = fopen("palavras.txt", "r+"); //abre o arquivo em modo de leitura e escrita a atribui ao ponteiro
+
+        //testa se o arquivo foi encontrado
+        if(f == 0) {
+            printf("Banco de dados não disponível\n\n");
+            exit(1); //encerra o programa
+        }
+
+        //atualiza quantidade de palavras
+        int qtd;
+        fscanf(f, "%d", &qtd);
+        qtd++;
+        fseek(f, 0, SEEK_SET); //move a posição de leitura, no caso 0 bytes a partir do início do arquivo (SEEK_SET)
+        fprintf(f, "%d", qtd);
+
+        //inclui a palavra no final do arquivo
+        fseek(f, 0, SEEK_END); //move a posição de leitura, 0 bytes a partir do final do arquivo (SEEK_END)
+        fprintf(f, "\n%s", novapalavra);
+        fclose(f);
+    }
 }
 
 //seleciona a palavra através de um arquivo
@@ -120,6 +154,8 @@ int main() {
         chuta();
 
     } while(!acertou() && !enforcou());
+
+    adicionapalavra();
 
     return 0;
 }
