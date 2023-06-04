@@ -56,7 +56,7 @@ void desenhaforca() {
 void escolheapalavra(){
     FILE *f; // cria ponteiro para o arquivo
 
-    f = fopen("palavras.txt", "r"); //abre o arquivo e atribuí ao ponteiro
+    f = fopen("palavras.txt", "r"); //abre o arquivo somente pra leitura e atribuí ao ponteiro
 
     //testa se o arquivo foi encontrado
     if(f == 0) {
