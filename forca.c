@@ -6,7 +6,7 @@
 #include "forca.h"
 
 //Variáveis globais
-char palavrasecreta[20];
+char palavrasecreta[TAM_PALAVRA];
 char chutes[26];
 int chutesdados = 0;
 
@@ -39,6 +39,16 @@ int jachutou(char letra) {
 }
 
 void desenhaforca() {
+    int erros = chuteserrados();
+
+    printf("  _________     \n");
+    printf(" |         |    \n");
+    printf(" |        %s    \n", (erros >= 1 ? "(_)" : " "));
+    printf(" |       %s     \n", (erros >= 2 ? "_/|\\_" : " "));
+    printf(" |         %c   \n", (erros >= 3 ? 'A' : ' '));
+    printf(" |       %s     \n", (erros >= 4 ? "_/ \\_" : " "));
+    printf("_|_             \n");
+
     for(int i = 0; i < strlen(palavrasecreta); i++) {
             
             int achou = jachutou(palavrasecreta[i]);
@@ -59,7 +69,7 @@ void adicionapalavra() {
     scanf(" %c", &quer);
 
     if(quer == 's') {
-        char novapalavra[20];
+        char novapalavra[TAM_PALAVRA];
         printf("\n\nQual a nova palavra? ");
         scanf("%s", novapalavra);
 
@@ -120,7 +130,7 @@ int acertou() {
     return 1;
 }
 
-int enforcou() {
+int chuteserrados() {
     int erros = 0;
     
     for(int i = 0; i < chutesdados; i++) {
@@ -138,7 +148,13 @@ int enforcou() {
         }
     }
 
-    return (erros >= 5);
+    return erros;
+}
+
+int enforcou() {
+    
+
+    return (chuteserrados() >= 5);
 }
 
 int main() {
@@ -154,6 +170,13 @@ int main() {
         chuta();
 
     } while(!acertou() && !enforcou());
+
+    if(acertou()) {
+        printf("\n\nParabéns, você ganhou o jogo!");
+    } else {
+        printf("\n\nQue pena, você perdeu o jogo!");
+        printf("\nA palavra era %s", palavrasecreta);
+    }
 
     adicionapalavra();
 
